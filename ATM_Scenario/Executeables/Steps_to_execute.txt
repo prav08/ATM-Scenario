@@ -1,0 +1,83 @@
+Steps to execute the applications to demonstrate the required scenarios
+
+Run applications using the below commands from two separate tabs of the commandline in a java installed machine (please run these commands from within the Executeables folder)
+1. command to Run banking server : java -jar bankingServer-0.0.1.jar 
+2. command to Run client - ATM   : java -jar bankingClient-0.0.1.jar
+
+Executing these commands will start the server and the ATM client, 
+The console in ATM client displayes shell:> on succesful application startup
+
+This is the interface to perform ATM operations. Follow below instructions to demonstrate the usecases
+1. shell:> help and hit enter
+	- console displays the commands that can be executed in the shell
+	- mainly two commands are of importance, diplayed under the bank commands
+	- admin-mode
+	- user-mode
+2. shell:> admin-mode and hit enter
+	- console displays - Add cash of multiple denominations and prompts user to - Enter Amount
+3. shell:> 20000 and hit enter
+	- console displays - Please enter count of denominations for the amount 20000, prompts user to enter count of denominations
+4. shell:> 3 and hit enter
+	- application prompts - Enter denomination 
+5. shell:> 2000 and hit enter
+	- console displays - Enter count of notes for 2000
+6. shell:> 4 and hit enter
+	- console displays - Enter denomination
+7. shell:> 1000 and hit enter
+	- console displays - Enter count of notes for 1000
+8. shell:> 2 and hit enter
+	- console displays - Enter denomination
+9. shell:> 100 and hit enter
+	- console displays - Enter count of notes for 100
+	- console displays Amount successfully added to the machine - 20000
+	- also displays the denomination details 2000 - 4, 1000 - 2, 100 - 100
+[* this completes demo of ability to upload cash of different denominations, entering denomination not matching entered amount will display error and user can retry again, any invalid input will also display error]
+
+10. shell:> help and hit enter
+11. shell:> user-mode and hit enter
+	- console displays - Please login to your account; and prompts Enter card number
+12. shell:> 1111 and hit enter
+	- console displays - Enter card PIN
+13. shell:> 1212 and hit enter
+	- console displays - Success !! Logged-in to account Id --------
+	- also displays Operations allowed and corresponding serial numbers
+	- prompts user to enter serial no of operation to perform
+14. shell:> 1 and hit enter (check balance for account with cardnumber 1111)
+	- console displays retrieving balance for accountId ------- (accountId is mapped to cardNumber within the Banking server and this is used as a token for user session)
+	- console displays Balance in accountId - 20000 (preloaded for this user in banking server)
+	[* this completes demo of ability to check balance of account through api]
+
+15. shell:> user-mode  (only one operation is allowed per login , hence login again)
+16. for cardNumber shell:> 1111
+17  for cardPIN shell:> 1212
+18. shell:> 2 for operations (Demo of cash withdrawal)
+	- console displays withdrawing amount for accountId ------ and prompts user to enter amount to withdraw
+19. shell:> 11000 and hit enter
+	- console displays successfully withdrew amount 11000 and displays denomination details as per cash loaded in atm 
+	- 1000 - 4, 1000 - 2, 100 - 10
+	[* this completes demo of ability to withdraw amount depending on denomination available in account]
+20. shell:> user-mode (login again to perform another operation)
+21. shell:> 1111
+22. shell:> 1212
+23. for serial number,  enter: 1 and hit enter
+	- console displays account balance to reflect the previous withdrawal accordingly
+	- you may play with the admin mode to validate the denominations now available in the ATM machine
+24. shell:> user-mode at the shell:> again and hit enter
+25. shell:> 1111
+26. shell:> 1212
+27. shell:> 2
+	- console displays - Enter amount to withdraw
+28. shell:> 4100 and hit enter
+	- console displays - ERROR!! Attempted to withdraw more than allowed notes count : 40
+	[* this completes demo of ability to ensure ATM dispenses a max of 40 notes per transaction]
+
+[Similarly Attempting to withdraw more cash than available in the ATM will throw error ]
+[Can add cash to the ATM multiple times and the amount will get aggregated accordingly]
+
+You may try out multiple other combination of operations on the other accounts which are loaded to validate the functioning of the application.
+
+
+Thanks,
+Praveen
+
+
